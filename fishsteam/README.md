@@ -1,6 +1,6 @@
 # FishSteam
 
-FishSteam is a thing allowing to link with https://docs.rs/steamworks-rs without Steam SDK installed on a builder machine. Helpful for building a game with steamworks on GitHub Actions.
+FishSteam is a thing allowing to link with https://docs.rs/steamworks without Steam SDK installed on a builder machine. Helpful for building a game with steamworks on GitHub Actions.
 
 There is no steam confidential data here, only two libraries: one use "steamworks-rs" as a dependency, and another use "dlopen" to communicate with the first library at runtime.
 
