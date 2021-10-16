@@ -10,11 +10,13 @@
 //! Or just copy-paste the whole component code into a weapon and modify it. This is fine!
 
 mod bullet;
+mod gun_smoke;
 mod gunlike_animation;
 mod physics_body;
 mod throwable_item;
 
 pub use bullet::Bullet;
+pub use gun_smoke::GunSmoke;
 pub use gunlike_animation::GunlikeAnimation;
 pub use physics_body::PhysicsBody;
 pub use throwable_item::ThrowableItem;

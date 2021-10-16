@@ -1,5 +1,6 @@
 use macroquad::{
     audio::play_sound_once,
+    color,
     experimental::{
         animation::{AnimatedSprite, Animation},
         collections::storage,
@@ -11,7 +12,7 @@ use macroquad::{
 
 use crate::{
     capabilities,
-    components::{Bullet, GunlikeAnimation, PhysicsBody, ThrowableItem},
+    components::{Bullet, GunSmoke, GunlikeAnimation, PhysicsBody, ThrowableItem},
     nodes::Player,
     Resources,
 };
@@ -19,6 +20,10 @@ use crate::{
 pub struct MuscetBullet {
     bullet: Bullet,
     size: f32,
+    sprite: AnimatedSprite,
+    angle: f32,
+    facing: bool,
+    smoke_fx_timer: f32,
 }
 
 impl MuscetBullet {
@@ -36,6 +41,20 @@ impl MuscetBullet {
                 Self::BULLET_SPREAD,
             ),
             size,
+            sprite: AnimatedSprite::new(
+                15,
+                15,
+                &[Animation {
+                    name: "idle".to_string(),
+                    row: 0,
+                    frames: 1,
+                    fps: 1,
+                }],
+                true,
+            ),
+            angle: rand::gen_range(0.0, 6.28),
+            facing,
+            smoke_fx_timer: 0.0,
         }
     }
 }
@@ -63,12 +82,42 @@ impl scene::Node for MuscetBullet {
         node.provides(Self::network_capabilities());
     }
 
-    fn draw(node: RefMut<Self>) {
-        draw_circle(
-            node.bullet.pos.x,
-            node.bullet.pos.y,
-            node.size,
-            Color::new(1.0, 1.0, 0.8, 1.0),
+    fn fixed_update(mut node: RefMut<Self>) {
+        if node.smoke_fx_timer > 0.075 {
+            node.smoke_fx_timer = 0.0;
+            {
+                let mut resources = storage::get_mut::<Resources>();
+                resources
+                    .items_fxses
+                    .get_mut("muscet/bullet_smoke")
+                    .as_mut()
+                    .unwrap()
+                    .spawn(node.bullet.pos);
+            }
+        }
+        node.smoke_fx_timer += get_frame_time();
+
+        node.angle += 0.1;
+    }
+
+    fn draw(mut node: RefMut<Self>) {
+        node.sprite.update();
+
+        let resources = storage::get::<Resources>();
+        let frame = node.sprite.frame();
+
+        draw_texture_ex(
+            resources.items_textures["muscet/bullet"],
+            node.bullet.pos.x - frame.source_rect.w / 2.0,
+            node.bullet.pos.y - frame.source_rect.h / 2.0,
+            color::WHITE,
+            DrawTextureParams {
+                source: Some(frame.source_rect),
+                dest_size: Some(frame.dest_size),
+                flip_x: !node.facing,
+                rotation: node.angle,
+                ..Default::default()
+            },
         );
     }
 }
@@ -82,6 +131,7 @@ pub struct Muscet {
 
     pub body: PhysicsBody,
     pub throwable: ThrowableItem,
+    pub gun_smoke: GunSmoke,
 }
 
 impl scene::Node for Muscet {
@@ -107,6 +157,19 @@ impl scene::Node for Muscet {
     fn fixed_update(mut node: RefMut<Self>) {
         let node = &mut *node;
 
+        {
+            let mut resources = storage::get_mut::<Resources>();
+            node.gun_smoke.update(
+                &mut resources
+                    .items_fxses
+                    .get_mut("muscet/gun_smoke")
+                    .as_mut()
+                    .unwrap(),
+                node.muscet_fx,
+                node.throwable.thrown(),
+                &node.body,
+            );
+        }
         node.muscet_sprite.update();
         node.muscet_fx_sprite.update();
         node.throwable.update(&mut node.body, true);
@@ -173,6 +236,7 @@ impl Muscet {
             ),
             throwable: ThrowableItem::default(),
             bullets: 3,
+            gun_smoke: GunSmoke::new(),
         })
         .untyped()
     }
@@ -222,7 +286,7 @@ impl Muscet {
                 node.muscet_fx = true;
 
                 scene::add_node(MuscetBullet::new(
-                    node.body.pos + vec2(16.0, 15.0) + node.body.facing_dir() * 32.0,
+                    node.body.pos + vec2(16.0, 1.0) + node.body.facing_dir() * 32.0,
                     node.body.facing,
                     4.,
                 ));
@@ -324,6 +388,7 @@ impl Muscet {
             shoot,
         }
     }
+
     fn physics_capabilities() -> capabilities::PhysicsObject {
         fn active(handle: HandleUntyped) -> bool {
             let node = scene::get_untyped_node(handle)

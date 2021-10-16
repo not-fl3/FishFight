@@ -65,9 +65,15 @@ pub const ITEMS: &[Item] = &[
         tiled_name: "muscet",
         constructor: muscet::Muscet::spawn,
         tiled_offset: (-35., -25.),
-        textures: &[("gun", "assets/Whale/Gun(92x32).png")],
+        textures: &[
+            ("gun", "assets/Whale/Gun(92x32).png"),
+            ("bullet", "assets/Whale/Bullet(15x15).png"),
+        ],
         sounds: &[],
-        fxses: &[],
+        fxses: &[
+            ("bullet_smoke", "assets/fxses/bullet_smoke.json"),
+            ("gun_smoke", "assets/fxses/gun_smoke.json"),
+        ],
         network_ready: true,
     },
     Item {
