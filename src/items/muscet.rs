@@ -141,7 +141,7 @@ impl Muscet {
                 ],
                 false,
             ),
-            resources.items_textures["muscet/gun"],
+            resources.items_textures["muscet/gun"].clone(),
             Self::COLLIDER_WIDTH,
         );
 
@@ -157,7 +157,7 @@ impl Muscet {
                 }],
                 false,
             ),
-            resources.items_textures["muscet/gun"],
+            resources.items_textures["muscet/gun"].clone(),
             Self::COLLIDER_WIDTH,
         );
 
@@ -214,7 +214,7 @@ impl Muscet {
             // }
             {
                 let resources = storage::get_mut::<Resources>();
-                play_sound_once(resources.shoot_sound);
+                play_sound_once(&resources.shoot_sound);
 
                 let mut node = &mut *scene::get_node(node);
                 let player = &mut *scene::get_node(player);

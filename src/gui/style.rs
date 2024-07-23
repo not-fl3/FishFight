@@ -26,20 +26,29 @@ impl SkinCollection {
 
             let button_style = root_ui()
                 .style_builder()
-                .background(Image::from_file_with_format(
-                    include_bytes!("../../assets/ui/preview_background_2.png"),
-                    None,
-                ))
+                .background(
+                    Image::from_file_with_format(
+                        include_bytes!("../../assets/ui/preview_background_2.png"),
+                        None,
+                    )
+                    .unwrap(),
+                )
                 .background_margin(RectOffset::new(52.0, 52.0, 52.0, 52.0))
                 .margin(RectOffset::new(-40.0, -40.0, -40.0, -40.0))
-                .background_hovered(Image::from_file_with_format(
-                    include_bytes!("../../assets/ui/preview_background_2.png"),
-                    None,
-                ))
-                .background_clicked(Image::from_file_with_format(
-                    include_bytes!("../../assets/ui/preview_background_2.png"),
-                    None,
-                ))
+                .background_hovered(
+                    Image::from_file_with_format(
+                        include_bytes!("../../assets/ui/preview_background_2.png"),
+                        None,
+                    )
+                    .unwrap(),
+                )
+                .background_clicked(
+                    Image::from_file_with_format(
+                        include_bytes!("../../assets/ui/preview_background_2.png"),
+                        None,
+                    )
+                    .unwrap(),
+                )
                 .font(include_bytes!("../../assets/ui/MinimalPixel v2.ttf"))
                 .unwrap()
                 .text_color(Color::from_rgba(200, 200, 160, 255))
@@ -65,29 +74,41 @@ impl SkinCollection {
 
             let window_style = root_ui()
                 .style_builder()
-                .background(Image::from_file_with_format(
-                    include_bytes!("../../assets/ui/window_background_2.png"),
-                    None,
-                ))
+                .background(
+                    Image::from_file_with_format(
+                        include_bytes!("../../assets/ui/window_background_2.png"),
+                        None,
+                    )
+                    .unwrap(),
+                )
                 .background_margin(RectOffset::new(52.0, 52.0, 52.0, 52.0))
                 .margin(RectOffset::new(-30.0, -30.0, -30.0, -30.0))
                 .build();
 
             let button_style = root_ui()
                 .style_builder()
-                .background(Image::from_file_with_format(
-                    include_bytes!("../../assets/ui/button_background_2.png"),
-                    None,
-                ))
+                .background(
+                    Image::from_file_with_format(
+                        include_bytes!("../../assets/ui/button_background_2.png"),
+                        None,
+                    )
+                    .unwrap(),
+                )
                 .background_margin(RectOffset::new(8.0, 8.0, 12.0, 12.0))
-                .background_hovered(Image::from_file_with_format(
-                    include_bytes!("../../assets/ui/button_hovered_background_2.png"),
-                    None,
-                ))
-                .background_clicked(Image::from_file_with_format(
-                    include_bytes!("../../assets/ui/button_clicked_background_2.png"),
-                    None,
-                ))
+                .background_hovered(
+                    Image::from_file_with_format(
+                        include_bytes!("../../assets/ui/button_hovered_background_2.png"),
+                        None,
+                    )
+                    .unwrap(),
+                )
+                .background_clicked(
+                    Image::from_file_with_format(
+                        include_bytes!("../../assets/ui/button_clicked_background_2.png"),
+                        None,
+                    )
+                    .unwrap(),
+                )
                 .font(include_bytes!("../../assets/ui/MinimalPixel v2.ttf"))
                 .unwrap()
                 .text_color(Color::from_rgba(200, 200, 160, 255))
@@ -110,14 +131,20 @@ impl SkinCollection {
 
             let editbox_style = root_ui()
                 .style_builder()
-                .background(Image::from_file_with_format(
-                    include_bytes!("../../assets/ui/editbox_background2.png"),
-                    None,
-                ))
-                .background_clicked(Image::from_file_with_format(
-                    include_bytes!("../../assets/ui/editbox_background.png"),
-                    None,
-                ))
+                .background(
+                    Image::from_file_with_format(
+                        include_bytes!("../../assets/ui/editbox_background2.png"),
+                        None,
+                    )
+                    .unwrap(),
+                )
+                .background_clicked(
+                    Image::from_file_with_format(
+                        include_bytes!("../../assets/ui/editbox_background.png"),
+                        None,
+                    )
+                    .unwrap(),
+                )
                 .font(include_bytes!("../../assets/ui/MinimalPixel v2.ttf"))
                 .unwrap()
                 .background_margin(RectOffset::new(2., 2., 2., 2.))
@@ -126,25 +153,37 @@ impl SkinCollection {
                 .build();
             let checkbox_style = root_ui()
                 .style_builder()
-                .background(Image::from_file_with_format(
-                    include_bytes!("../../assets/ui/checkbox_background.png"),
-                    None,
-                ))
-                .background_hovered(Image::from_file_with_format(
-                    include_bytes!("../../assets/ui/checkbox_hovered_background.png"),
-                    None,
-                ))
-                .background_clicked(Image::from_file_with_format(
-                    include_bytes!("../../assets/ui/checkbox_clicked_background.png"),
-                    None,
-                ))
+                .background(
+                    Image::from_file_with_format(
+                        include_bytes!("../../assets/ui/checkbox_background.png"),
+                        None,
+                    )
+                    .unwrap(),
+                )
+                .background_hovered(
+                    Image::from_file_with_format(
+                        include_bytes!("../../assets/ui/checkbox_hovered_background.png"),
+                        None,
+                    )
+                    .unwrap(),
+                )
+                .background_clicked(
+                    Image::from_file_with_format(
+                        include_bytes!("../../assets/ui/checkbox_clicked_background.png"),
+                        None,
+                    )
+                    .unwrap(),
+                )
                 .build();
             let combobox_style = root_ui()
                 .style_builder()
-                .background(Image::from_file_with_format(
-                    include_bytes!("../../assets/ui/combobox_background.png"),
-                    None,
-                ))
+                .background(
+                    Image::from_file_with_format(
+                        include_bytes!("../../assets/ui/combobox_background.png"),
+                        None,
+                    )
+                    .unwrap(),
+                )
                 .background_margin(RectOffset::new(4., 25., 6., 6.))
                 .font(include_bytes!("../../assets/ui/MinimalPixel v2.ttf"))
                 .unwrap()

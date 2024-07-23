@@ -90,7 +90,7 @@ impl Sproinger {
             let intersect = sproinger_rect.intersect(object_collider);
             if intersect.is_some() {
                 let resources = storage::get_mut::<Resources>();
-                play_sound_once(resources.jump_sound);
+                play_sound_once(&resources.jump_sound);
 
                 physics_object.set_speed_y(-Self::FORCE);
 
@@ -157,7 +157,7 @@ impl scene::Node for Sproinger {
         let resources = storage::get_mut::<Resources>();
 
         draw_texture_ex(
-            resources.items_textures["sproinger/sproinger"],
+            &resources.items_textures["sproinger/sproinger"],
             node.pos.x,
             node.pos.y,
             color::WHITE,

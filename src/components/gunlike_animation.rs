@@ -50,7 +50,7 @@ impl GunlikeAnimation {
         let w = self.sprite.frame().source_rect.w;
 
         draw_texture_ex(
-            self.spritesheet,
+            &self.spritesheet,
             pos.x + if !facing { self.collider_width - w } else { 0. },
             pos.y,
             color::WHITE,

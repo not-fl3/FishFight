@@ -228,7 +228,7 @@ impl scene::Node for Camera {
         // let zoom = 400.;
         let macroquad_camera = Camera2D {
             target: middle_point,
-            zoom: vec2(1. / aspect, -1.) / zoom * 2.,
+            zoom: vec2(1. / aspect, 1.) / zoom * 2.,
             rotation,
             ..Camera2D::default()
         };

@@ -31,7 +31,7 @@ impl Player {
 
     pub fn pick_weapon(&mut self, weapon: NodeWith<Weapon>) {
         let resources = storage::get_mut::<Resources>();
-        play_sound_once(resources.pickup_sound);
+        play_sound_once(&resources.pickup_sound);
 
         self.drop_weapon();
 
@@ -45,7 +45,7 @@ impl Player {
         self.jump_frames_left = Self::JUMP_HEIGHT_CONTROL_FRAMES;
 
         audio::play_sound(
-            resources.jump_sound,
+            &resources.jump_sound,
             audio::PlaySoundParams {
                 looped: false,
                 volume: 0.6,
@@ -277,7 +277,7 @@ impl Player {
                 self.state_machine.set_state(Self::ST_DEATH);
                 {
                     let resources = storage::get::<Resources>();
-                    play_sound_once(resources.player_die_sound);
+                    play_sound_once(&resources.player_die_sound);
                 }
             }
         }
@@ -489,7 +489,7 @@ impl Player {
         if node.body.on_ground && !node.body.last_frame_on_ground {
             {
                 let resources = storage::get::<Resources>();
-                play_sound_once(resources.player_landing_sound);
+                play_sound_once(&resources.player_landing_sound);
             }
         }
 
@@ -563,7 +563,7 @@ impl Player {
                 node.weapon = None;
                 {
                     let resources = storage::get::<Resources>();
-                    play_sound_once(resources.player_throw_sound);
+                    play_sound_once(&resources.player_throw_sound);
                 }
 
                 // when the flocating fish is throwing a weapon and keeps
@@ -709,7 +709,7 @@ impl Player {
                     //
                     if hitbox.y + 60.0 < other_hitbox.y + Self::HEAD_THRESHOLD {
                         let resources = storage::get_mut::<Resources>();
-                        play_sound_once(resources.jump_sound);
+                        play_sound_once(&resources.jump_sound);
                         other.kill(!node.body.facing);
                     }
                 }
@@ -750,16 +750,16 @@ impl scene::Node for Player {
         draw_texture_ex(
             if node.controller_id == 0 {
                 if node.can_head_boink {
-                    resources.whale_boots_blue
+                    &resources.whale_boots_blue
                 } else {
-                    resources.whale_blue
+                    &resources.whale_blue
                 }
             } else {
                 //
                 if node.can_head_boink {
-                    resources.whale_boots_green
+                    &resources.whale_boots_green
                 } else {
-                    resources.whale_green
+                    &resources.whale_green
                 }
             },
             node.body.pos.x - 25.,
@@ -777,9 +777,9 @@ impl scene::Node for Player {
         if node.back_armor > 0 {
             draw_texture_ex(
                 if node.back_armor == 1 {
-                    resources.broken_turtleshell
+                    &resources.broken_turtleshell
                 } else {
-                    resources.turtleshell
+                    &resources.turtleshell
                 },
                 node.body.pos.x + if node.body.facing { -20.0 } else { 15.0 },
                 node.body.pos.y,

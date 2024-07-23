@@ -53,7 +53,7 @@ impl scene::Node for Decoration {
         let resources = storage::get_mut::<Resources>();
 
         draw_texture_ex(
-            resources.decorations,
+            &resources.decorations,
             node.pos.x,
             node.pos.y - 51.,
             WHITE,

@@ -517,7 +517,7 @@ pub async fn location_select() -> String {
                     level.size = level.size * 0.9 + 0.0;
                 }
 
-                if ui::widgets::Button::new(level.preview)
+                if ui::widgets::Button::new(level.preview.clone())
                     .size(rect.size())
                     .position(rect.point())
                     .ui(&mut *root_ui())

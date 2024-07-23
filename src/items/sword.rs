@@ -47,7 +47,7 @@ impl scene::Node for Sword {
             let hack_offset = vec2(0.0, -35.);
 
             draw_texture_ex(
-                resources.items_textures["sword/sword"],
+                &resources.items_textures["sword/sword"],
                 sword.body.pos.x + hack_offset.x,
                 sword.body.pos.y + hack_offset.y,
                 color::WHITE,
@@ -68,7 +68,7 @@ impl scene::Node for Sword {
             };
 
             draw_texture_ex(
-                resources.items_textures["sword/fish_sword"],
+                &resources.items_textures["sword/fish_sword"],
                 sword.body.pos.x,
                 sword.body.pos.y,
                 color::WHITE,
@@ -196,7 +196,7 @@ impl Sword {
         let coroutine = async move {
             {
                 let resources = storage::get_mut::<Resources>();
-                play_sound_once(resources.sword_sound);
+                play_sound_once(&resources.sword_sound);
 
                 let sword = &mut *scene::get_node(node);
                 sword.sprite.set_animation(1);

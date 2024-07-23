@@ -46,9 +46,9 @@ impl scene::Node for LevelBackground {
 
         clear_background(Color::from_rgba(126, 168, 166, 255));
 
-        let dest_rect = parallax(resources.background_03, 2.0, pos);
+        let dest_rect = parallax(resources.background_03.clone(), 2.0, pos);
         draw_texture_ex(
-            resources.background_03,
+            &resources.background_03,
             dest_rect.x,
             80.0 + dest_rect.y,
             WHITE,
@@ -57,9 +57,9 @@ impl scene::Node for LevelBackground {
                 ..Default::default()
             },
         );
-        let dest_rect = parallax(resources.background_02, 1.0, pos);
+        let dest_rect = parallax(resources.background_02.clone(), 1.0, pos);
         draw_texture_ex(
-            resources.background_02,
+            &resources.background_02,
             dest_rect.x,
             120.0 + dest_rect.y,
             WHITE,
@@ -69,9 +69,9 @@ impl scene::Node for LevelBackground {
             },
         );
 
-        let dest_rect = parallax(resources.background_01, 0.5, pos);
+        let dest_rect = parallax(resources.background_01.clone(), 0.5, pos);
         draw_texture_ex(
-            resources.background_01,
+            &resources.background_01,
             dest_rect.x,
             180.0 + dest_rect.y,
             WHITE,

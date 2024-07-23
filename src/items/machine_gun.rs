@@ -96,7 +96,7 @@ impl MachineGun {
                 ],
                 false,
             ),
-            resources.items_textures["machine_gun/gun"],
+            resources.items_textures["machine_gun/gun"].clone(),
             Self::COLLIDER_WIDTH,
         );
 
@@ -157,7 +157,7 @@ impl MachineGun {
             // }
             {
                 let resources = storage::get_mut::<Resources>();
-                play_sound_once(resources.shoot_sound);
+                play_sound_once(&resources.shoot_sound);
 
                 let node = &mut *scene::get_node(node);
                 let player = &mut *scene::get_node(player);

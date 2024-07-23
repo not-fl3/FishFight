@@ -62,7 +62,7 @@ struct Resources {
 
 impl Resources {
     // TODO: fix macroquad error type here
-    async fn new(map: &str) -> Result<Resources, macroquad::prelude::FileError> {
+    async fn new(map: &str) -> Result<Resources, macroquad::Error> {
         let tileset = load_texture("assets/tileset.png").await?;
         tileset.set_filter(FilterMode::Nearest);
 
@@ -107,7 +107,10 @@ impl Resources {
         let tiled_map_json = load_string(map).await.unwrap();
         let tiled_map = tiled::load_map(
             &tiled_map_json,
-            &[("tileset.png", tileset), ("decorations1.png", decorations)],
+            &[
+                ("tileset.png", tileset.clone()),
+                ("decorations1.png", decorations.clone()),
+            ],
             &[],
         )
         .unwrap();
@@ -215,6 +218,7 @@ async fn game(map: &str, game_type: GameType) {
 
         next_frame().await;
     }
+    storage::get::<Resources>();
 
     let battle_music = if map == "assets/map.json" {
         load_sound("assets/music/across the pond.ogg")
@@ -225,7 +229,7 @@ async fn game(map: &str, game_type: GameType) {
     };
 
     audio::play_sound(
-        battle_music,
+        &battle_music,
         audio::PlaySoundParams {
             looped: true,
             volume: 0.6,
